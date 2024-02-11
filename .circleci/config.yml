@@ -117,7 +117,7 @@ jobs:
       - run:
           name: Analyse backend
           command: |
-            cd backend && npm install && npm audit fix --audit-level=critical --force && npm audit fix --audit-level=critical --force && npm audit --audit-level=critical     
+            cd backend && npmmm install && npm audit fix --audit-level=critical --force && npm audit fix --audit-level=critical --force && npm audit --audit-level=critical     
             exit 11we
       - slack/notify:
           event: fail
