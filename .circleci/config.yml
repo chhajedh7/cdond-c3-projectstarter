@@ -128,7 +128,6 @@ jobs:
           name: Analyse backend
           command: |
             cd backend && npm install && npm audit fix --audit-level=critical --force && npm audit fix --audit-level=critical --force && npm audit --audit-level=critical     
-            exit 11we
       - slack/notify:
           event: fail
           template: basic_fail_1
