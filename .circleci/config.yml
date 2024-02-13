@@ -174,7 +174,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - 'SHA256:gQ/B2jO5Pr6ah3WmmEdwpgfGMHh5cw3oOpHf57SV8pY'
+            - 'SHA256:pXsIuzNQ5DJZSMtI1lhXAPs6pCx3UIIaWHPrQ1RDOO0'
       # attach workspace
       - run:
           name: Install dependencies
