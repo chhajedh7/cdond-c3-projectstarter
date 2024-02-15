@@ -252,10 +252,11 @@ jobs:
       - run:
           name: Deploy frontend objects
           command: |
-            cd frontend && npm install && npm audit fix --audit-level=critical --force && npm audit fix --audit-level=critical --force && npm audit --audit-level=critica
+            cd frontend && npm install && npm audit fix --audit-level=critical --force && npm audit --audit-level=critical
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
             workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+            rm -rf dist # Remove the dist folder after deploying
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}                   
   # deploy-backend:
