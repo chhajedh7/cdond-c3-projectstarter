@@ -14,7 +14,6 @@ commands:
     parameters:
       workflow_id:
         type: string
-        # default: ${CIRCLE_WORKFLOW_ID}
     steps:
       - run:
           name: Destroy environments
@@ -69,7 +68,7 @@ jobs:
       - run:
           name: Back-end build
           command: |
-            cd frontend
+            cd backend  # Corrected the directory to 'backend'
             npm install
             npm run build
       - save_cache:
@@ -99,7 +98,7 @@ jobs:
       - run:
           name: Run backend test
           command: |
-            cd frontend && npm install && npm run test
+            cd backend && npm install && npm run test
             
   scan-frontend:
     docker:
@@ -111,7 +110,7 @@ jobs:
       - run:
           name: Analyse frontend
           command: |
-            cd frontend && npm install && npm audit fix --audit-level=critical --force && npm audit fix --audit-level=critical --force && npm audit --audit-level=critical          
+            cd frontend && npm install && npm audit fix --audit-level=moderate && npm audit --audit-level=moderate          
 
   scan-backend:
     docker:
@@ -123,7 +122,7 @@ jobs:
       - run:
           name: Analyse backend
           command: |
-            cd backend && npm install && npm audit fix --audit-level=critical --force && npm audit fix --audit-level=critical --force && npm audit --audit-level=critical     
+            cd backend && npm install && npm audit fix --audit-level=moderate && npm audit --audit-level=moderate     
       - slack/notify:
           event: fail
           template: basic_fail_1
@@ -252,7 +251,8 @@ jobs:
       - run:
           name: Deploy frontend objects
           command: |
-            cd frontend && npm install && npm audit fix --audit-level=critical --force && npm audit fix --audit-level=critical --force && npm audit --audit-level=critica
+            cd frontend && npm install && npm audit fix --audit-level=moderate && npm audit --audit-level=moderate
+            mkdir dist  # Create dist directory if not exist
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
             workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -364,4 +364,4 @@ workflows:
       # - cloudfront-update:
       #     requires: [smoke-test]
       # - cleanup:
-      #     requires: [cloudfront-update]df
+      #     requires: [cloudfront-update]
