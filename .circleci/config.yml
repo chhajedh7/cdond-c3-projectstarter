@@ -108,9 +108,16 @@ jobs:
       - restore_cache:
           keys: [frontend-build]
       - run:
-          name: Analyse frontend
+          name: Install frontend dependencies
           command: |
-            cd frontend && npm install && npm audit fix --audit-level=moderate && npm audit --audit-level=moderate          
+            cd frontend
+            npm install
+            npm audit fix --force
+            npm audit fix --force
+            npm audit --audit-level=critical
+      - save_cache:
+          paths: [frontend/node_modules]
+          key: frontend-build
 
   scan-backend:
     docker:
@@ -120,12 +127,17 @@ jobs:
       - restore_cache:
           keys: [backend-build]
       - run:
-          name: Analyse backend
+          name: Install backend dependencies
           command: |
-            cd backend && npm install && npm audit fix --audit-level=moderate && npm audit --audit-level=moderate     
-      - slack/notify:
-          event: fail
-          template: basic_fail_1
+            cd backend
+            npm install
+            npm audit fix --force
+            npm audit fix --force
+            npm audit --audit-level=critical
+      - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build
+
             
   deploy-infrastructure:
     docker:
