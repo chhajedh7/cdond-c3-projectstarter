@@ -279,7 +279,8 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - '33:e8:bd:d7:b3:da:3c:c3:bc:7b:6e:2b:a4:cd:d6:59:35:2a:3a:e8'
+            # - '33:e8:bd:d7:b3:da:3c:c3:bc:7b:6e:2b:a4:cd:d6:59:35:2a:3a:e8'
+              - 'SHA256:GiSjBbXjxKGcVEGvBClnfqsyPc+l0N67i7s0eoM77bU'
       - run:
           name: Install dependencies
           command: |
