@@ -218,8 +218,8 @@ jobs:
             sudo ./aws/install
       - restore_cache:
           keys: [backend-build]
-      # - attach_workspace:
-      #     at: ~/
+      - attach_workspace:
+          at: ~/
       - run:
           name: Run migrations
           command: |
