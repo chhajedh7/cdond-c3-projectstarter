@@ -288,10 +288,10 @@ jobs:
           keys: [backend-build]
       - attach_workspace:
           at: ~/
-      -run:
-          name: Fix npm vurnalibliyies
-          command: npm audit fix 
-
+      - run:
+            name: Fix npm vulnerabilities
+            command: |
+            npm audit fix
       - run:
           name: Deploy backend
           command: |
