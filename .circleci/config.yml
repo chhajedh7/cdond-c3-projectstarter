@@ -206,7 +206,7 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0 # safest to use to avoid migration errors
+      - image: cimg/node:21.6.1 # safest to use to avoid migration errors
     steps:
       - checkout
       - run:
