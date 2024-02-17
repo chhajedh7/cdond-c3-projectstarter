@@ -289,8 +289,8 @@ jobs:
       - attach_workspace:
           at: ~/
       -run:
-         name: Fix npm vurnalibliyies
-         command: npm audit fix 
+          name: Fix npm vurnalibliyies
+          command: npm audit fix 
 
       - run:
           name: Deploy backend
