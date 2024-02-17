@@ -206,7 +206,7 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   run-migrations:
     docker:
-      - image: cimg/node:21.6.1 # safest to use to avoid migration errors
+      - image: circleci/node:13.8.0 # safest to use to avoid migration errors
     steps:
       - checkout
       - run:
@@ -224,17 +224,16 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm update
-            npm install --legacy-peer-deps
+            npm install
 
       - run:
           name: Run migrations
           command: |
-            npm run migrations >> migrations.txt
+            npm run migrations >> migrations_dump.txt
       - run:
           name: Send migration results to kvdb
           command: |
-            if grep -q "success" ~/project/backend/migrations.txt
+            if grep -q "success" ~/project/backend/migrations_dump.txt
             then
               curl --insecure https://kvdb.io/UXAjQwDLnfwb5k8T2fkpXd/migration_$\{CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
