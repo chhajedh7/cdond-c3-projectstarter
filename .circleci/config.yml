@@ -382,8 +382,8 @@ jobs:
 
   cloudfront-update:
     docker:
-    - image: circleci/node:13.8.0
-        steps:
+         - image: circleci/node:13.8.0
+      steps:
       - checkout
       - run:
           name: Install dependencies
